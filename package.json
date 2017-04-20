@@ -1,0 +1,18 @@
+{
+  "name": "react-carbon",
+  "version": "1.0.0",
+  "description": "Example application for react, carbon, mongodb application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^2.4.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/username/repository.git"
+  }
+}
