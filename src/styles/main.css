@@ -1,0 +1,9 @@
+.selected {
+  background-color: blue;
+}
+.column {
+  flex: 1;
+}
+.main {
+  display: flex;
+}
