@@ -7,7 +7,6 @@ export default class ContactItem extends React.Component {
   }
 
   handleItemClick(e) {
-    // console.log(this);
     this.props.onSelectContact(this.props.key);
   }
 

@@ -3,15 +3,29 @@ import ContactItem from "./ContactItem.jsx";
 
 export default class ContactList extends React.Component {
 
-  render() {
-    var clickHandler = (id, selectHandler) => {
-      return () => { selectHandler(id) };
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedId: null
+    }
+    this.wrapSelectHandler.bind(this);
+  }
+
+  wrapSelectHandler(id, selectHandler) {
+    var self = this;
+    return (e) => {
+      self.setState({ "selectedId": id});
+      selectHandler(id);
     };
+  }
+
+  render() {
     var contactList = this.props.contacts.map((contact) => {
+      var cId = contact._id.$oid;
+      var clickHandler = this.wrapSelectHandler(cId, this.props.handleSelectContact);
+      var isSelected = this.state.selectedId && contact._id.$oid === this.state.selectedId;
       return (
-        <li key={contact._id.$oid}
-          onClick={clickHandler(contact._id, this.props.handleSelectContact)}>
-          {contact.name}</li>
+        <li key={cId} className={isSelected ? "selected" : ""} onClick={clickHandler}> {contact.name}</li>
       );
     });
     return <ul>{contactList}</ul>;

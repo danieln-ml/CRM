@@ -16,7 +16,7 @@ export default class ContactButtonBar extends React.Component {
     if (cId) {
       return (
         <div class="button-bar">
-          <button onClick={this.wrapIdHandler(cId, this.props.onUpdateContact)}>Update</button>
+          <button onClick={this.wrapIdHandler(cId, this.props.onUpdateContact)}>Save</button>
           <button onClick={this.wrapIdHandler(cId, this.props.onDeleteContact)}>Delete</button>
         </div>
       );

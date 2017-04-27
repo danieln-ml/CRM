@@ -25,6 +25,7 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
     "carbon-io": "^0.6.2",
+    "express": "^4.15.2",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "webpack": "^2.4.1"
