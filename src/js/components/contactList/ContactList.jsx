@@ -21,11 +21,12 @@ export default class ContactList extends React.Component {
 
   render() {
     var contactList = this.props.contacts.map((contact) => {
-      var cId = contact._id.$oid;
+      var cId = contact._id;
+      var fullName = contact.firstName + " " + contact.lastName;
       var clickHandler = this.wrapSelectHandler(cId, this.props.handleSelectContact);
-      var isSelected = this.state.selectedId && contact._id.$oid === this.state.selectedId;
+      var isSelected = this.state.selectedId && contact._id === this.state.selectedId;
       return (
-        <li key={cId} className={isSelected ? "selected" : ""} onClick={clickHandler}> {contact.name}</li>
+        <li key={cId} className={isSelected ? "selected" : ""} onClick={clickHandler}> {fullName}</li>
       );
     });
     return <ul>{contactList}</ul>;

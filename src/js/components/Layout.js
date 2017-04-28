@@ -22,10 +22,15 @@ export default class Layout extends React.Component {
 
   componentDidMount() {
     var self = this;
-    ContactApi.fetchAll().then(function(res) {
-      const contacts = res.data;
-      self.setState({ contacts: contacts });
-    });
+    ContactApi.fetchAll().then(
+      function(res) {
+        var contacts = res.data;
+        self.setState({ contacts: contacts });
+      },
+      function(error) {
+        console.error(error.message);
+      }
+    );
   }
 
   addStagedContact = () => {
@@ -36,7 +41,7 @@ export default class Layout extends React.Component {
 
   handleSelectContact = (id) => {
     var selectedContact = this.state.contacts.find((contact) => {
-      return contact._id.$oid ===  id;
+      return contact._id ===  id;
     });
     this.setState({'selectedContact': Object.assign({}, selectedContact) });
     console.log(this.state.selectedContact);
@@ -67,26 +72,14 @@ export default class Layout extends React.Component {
 
   handleCreateContact = (contact) => {
     console.log('bowsing a create')
-    // ContactApi.create(contact)
-    //   .then(function(data) {
-    //     console.log(data);
-    //   })
   }
 
   handleDeleteContact = (contactId) => {
     console.log('bowsing a deletes')
-    // ContactApi.create(contact)
-    //   .then(function(data) {
-    //     console.log(data);
-    //   })
   }
 
   handleUpdateContact = (contactId) => {
     console.log('bowsing a update')
-    // ContactApi.create(contact)
-    //   .then(function(data) {
-    //     console.log(data);
-    //   })
   }
 
   render() {

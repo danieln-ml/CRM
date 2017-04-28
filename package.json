@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "./node_modules/.bin/webpack-dev-server --content-base src --inline --hot",
+    "dev": "webpack-dev-server --content-base src --inline --hot",
     "build": "webpack -p"
   },
   "author": "",
@@ -26,8 +26,10 @@
     "babel-preset-stage-0": "^6.3.13",
     "carbon-io": "^0.6.2",
     "express": "^4.15.2",
+    "history": "^4.6.1",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
+    "react-router": "^4.1.1",
     "webpack": "^2.4.1"
   },
   "repository": {
