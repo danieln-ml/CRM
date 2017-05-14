@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import Layout from "./Layout";
+import ContactLayout from "./ContactLayout";
 import UserLayout from "./UserLayout.jsx";
 import UserStorage from "../services/UserSession.js";
 import Api from "../services/ContactService"
@@ -70,7 +70,7 @@ export default class App extends React.Component {
 
     if (this.state.hasUserSession) {
       actionLink = <a onClick={this.logoutLinkHandler}>Logout</a>
-      body = <Layout />
+      body = <ContactLayout />
     }
     else {
       body = (

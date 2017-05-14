@@ -12,7 +12,7 @@ var initContact = () => {
   });
 }
 
-export default class Layout extends React.Component {
+export default class ContactLayout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
