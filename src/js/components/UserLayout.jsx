@@ -1,9 +1,6 @@
 import React from "react";
 import FormInput from "./contactForm/ContactInput.jsx"
-import Api from "../services/ContactService"
 import UserSession from "../services/UserSession"
-
-
 
 export default class UserLayout extends React.Component {
 
@@ -15,23 +12,6 @@ export default class UserLayout extends React.Component {
         password: ''
       }
     }
-  }
-
-  checkedLoggedIn = (e) => {
-    var user = this.state.user;
-    Api.authenticateUser(user).then(
-      (response) => {
-        var userId = response.data.userId;
-        UserSession.setUser({
-          _id: userId,
-          email: user.email,
-          password: user.password
-        })
-      },
-      (error) => {
-        console.log(error.response.data)
-      }
-    );
   }
 
   onInputChange = (name, value) => {
@@ -46,10 +26,14 @@ export default class UserLayout extends React.Component {
       padding: "2rem"
     };
     var user = this.state.user;
+    var actionButton = this.props.onCreate ?
+      <a href="#" class="btn btn-default" onClick={() => { this.props.createHandler(this.state.user); }}>Create</a>:
+      <a href="#" class="btn btn-primary" onClick={() => { this.props.loginHandler(this.state.user); }}>Login</a>;
+    var hTag = this.props.onCreate ? <h3>Create Account</h3> : <h3>Sign In</h3>;
 
     return (
       <div>
-        <h3> Sign In </h3>
+        {hTag}
         <form style={formStyles}>
           <FormInput onInputChange={this.onInputChange}
             value={user.email}
@@ -60,8 +44,7 @@ export default class UserLayout extends React.Component {
             value={user.password}
             name="password"
             placeholder="some password" />
-
-          <a href="#" class="btn btn-primary" onClick={this.checkedLoggedIn}>Login</a>
+          {actionButton}
         </form>
       </div>
     );

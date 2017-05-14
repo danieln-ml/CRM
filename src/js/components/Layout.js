@@ -5,8 +5,10 @@ import ContactForm from "./contactForm/ContactForm.jsx";
 
 var initContact = () => {
   return Object.assign({}, {
-    name:     '',
-    zipcode:  ''
+    firstName: "",
+    lastName: "",
+    email: "",
+    mobilePhone: ""
   });
 }
 
@@ -24,7 +26,15 @@ export default class Layout extends React.Component {
     var self = this;
     ContactApi.fetchAll().then(
       function(res) {
-        var contacts = res.data;
+        var contacts = res.data.map(contact => {
+          return {
+            _id: contact._id,
+            firstName: contact.firstName,
+            lastName: contact.lastName,
+            email: contact.email,
+            mobilePhone: contact.phoneNumbers.mobile
+          };
+        });
         self.setState({ contacts: contacts });
       },
       function(error) {
@@ -71,7 +81,15 @@ export default class Layout extends React.Component {
   }
 
   handleCreateContact = (contact) => {
-    console.log('bowsing a create')
+    ContactApi.createContact(contact).then(
+      function(resp) {
+        console.log('this worked')
+        console.log(resp);
+      },
+      function(err) {
+
+      }
+    );
   }
 
   handleDeleteContact = (contactId) => {
@@ -84,12 +102,13 @@ export default class Layout extends React.Component {
 
   render() {
     return (
-      <div class="main">
-        <div class="column">
+      <div className="row">
+        <div className="col-md-6">
           <ContactList contacts={this.state.contacts} handleSelectContact={this.handleSelectContact} />
           <button onClick={this.addStagedContact}>Add Contact</button>
         </div>
-        <div class="column">
+        <div className="col-md-6">
+          <h4>Add Contact</h4>
           <ContactForm
             contact={this.state.selectedContact}
             onChangeContact={this.handleChangeContact}

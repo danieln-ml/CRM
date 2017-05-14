@@ -32,6 +32,7 @@ module.exports = {
   devServer: {
     proxy: {
       "/api": {
+        // target: "https://radiant-tor-79648.herokuapp.com",
         target: "http://127.0.0.1:9900",
         pathRewrite: {"^/api" : ""}
       }
