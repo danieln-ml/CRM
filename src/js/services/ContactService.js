@@ -11,6 +11,20 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 //   "lastName": "Smith",
 //   "email": "mary@smith.com"
 // }
+
+function transformToPost(contact) {
+  return {
+    firstName: contact.firstName,
+    lastName: contact.lastName,
+    email: contact.email,
+    phoneNumbers: {
+      mobile: contact.phoneMobile,
+      work: contact.phoneWork,
+      home: contact.phoneHome
+    }
+  }
+}
+
 var Api = {
   authenticateUser: (user) => {
     return axios({
@@ -55,7 +69,7 @@ var Api = {
         username: user.email,
         password: user.password
       },
-      data: contact
+      data: transformToPost(contact)
     });
   },
   delete: (id) => {

@@ -8,7 +8,9 @@ var initContact = () => {
     firstName: "",
     lastName: "",
     email: "",
-    mobilePhone: ""
+    phoneMobile: "",
+    phoneWork: "",
+    phoneHome: ""
   });
 }
 
@@ -32,7 +34,9 @@ export default class ContactLayout extends React.Component {
             firstName: contact.firstName,
             lastName: contact.lastName,
             email: contact.email,
-            mobilePhone: contact.phoneNumbers.mobile
+            phoneMobile: contact.phoneNumbers.mobile || '',
+            phoneWork: contact.phoneNumbers.work || '',
+            phoneHome: contact.phoneNumbers.home || '',
           };
         });
         self.setState({ contacts: contacts });

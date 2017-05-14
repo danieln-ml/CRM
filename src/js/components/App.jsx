@@ -55,6 +55,10 @@ export default class App extends React.Component {
 
   logoutLinkHandler = () => {
     UserSession.removeUser();
+    this.setState({
+      hasUserSession: false,
+      user: { email: '', password: ''}
+    })
   }
 
   createLinkHandler = () => {
