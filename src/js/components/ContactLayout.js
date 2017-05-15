@@ -49,7 +49,7 @@ export default class ContactLayout extends React.Component {
 
   addStagedContact = () => {
     this.setState({
-      'selectedContact': initContact()
+      selectedContact: initContact()
     });
   }
 
@@ -149,7 +149,7 @@ export default class ContactLayout extends React.Component {
     return (
       <div className="row">
         <div className="col-md-6">
-          <ContactList contacts={this.state.contacts} handleSelectContact={this.handleSelectContact} />
+          <ContactList contacts={this.state.contacts} selectedContact={this.state.selectedContact} handleSelectContact={this.handleSelectContact} />
           <button onClick={this.addStagedContact}>Add Contact</button>
         </div>
         <div className="col-md-6">
