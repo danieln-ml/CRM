@@ -13,8 +13,16 @@ export default class App extends React.Component {
     this.state = {
       hasUserSession: hasUserSession,
       onCreate: false,
-      user: hasUserSession ? UserSession.getUser() : { email: '', password: ''}
+      user: hasUserSession ? UserSession.getUser() : this.emptyUser()
     }
+  }
+
+  emptyUser() {
+    return {
+      email: '',
+      password: '',
+      contacts: []
+    };
   }
 
   loginHandler = (user) => {
@@ -74,7 +82,7 @@ export default class App extends React.Component {
 
     if (this.state.hasUserSession) {
       actionLink = <a onClick={this.logoutLinkHandler}>Logout</a>
-      body = <ContactLayout />
+      body = <ContactLayout contacts={this.state.user.contacts} />
     }
     else {
       body = (

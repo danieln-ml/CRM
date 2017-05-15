@@ -4,14 +4,14 @@ import ContactList from "./contactList/ContactList.jsx";
 import ContactForm from "./contactForm/ContactForm.jsx";
 
 var initContact = () => {
-  return Object.assign({}, {
+  return {
     firstName: "",
     lastName: "",
     email: "",
     phoneMobile: "",
     phoneWork: "",
     phoneHome: ""
-  });
+  };
 }
 
 export default class ContactLayout extends React.Component {
@@ -85,13 +85,19 @@ export default class ContactLayout extends React.Component {
   }
 
   handleCreateContact = (contact) => {
-    ContactApi.createContact(contact).then(
-      function(resp) {
-        console.log('this worked')
-        console.log(resp);
+    var self = this;
+    ContactApi.createContact(contact).then( (response) => {
+        var params = response.headers.location.split('/');
+        var contactId = params[params.length - 1];
+        var newContact = Object.assign(contact, { _id: contactId } );
+        self.state.contacts.push(newContact);
+        self.setState({
+          selectedContact: initContact(),
+          contacts: self.state.contacts.slice()
+        })
       },
       function(err) {
-
+        alert(err);
       }
     );
   }
