@@ -1,5 +1,4 @@
 import React from "react";
-import ContactItem from "./ContactItem.jsx";
 
 export default class ContactList extends React.Component {
 
