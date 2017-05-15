@@ -28,14 +28,5 @@ module.exports = {
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
-  ],
-  devServer: {
-    proxy: {
-      "/api": {
-        // target: "https://radiant-tor-79648.herokuapp.com",
-        target: "http://127.0.0.1:9900",
-        pathRewrite: {"^/api" : ""}
-      }
-    }
-  }
+  ]
 };

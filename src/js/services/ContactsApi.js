@@ -2,6 +2,7 @@ import axios from "axios"
 import UserSession from "./UserSession"
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.baseURL = 'https://radiant-tor-79648.herokuapp.com';
 
 function toSchema(contact) {
   var body = {
@@ -28,7 +29,7 @@ var Api = {
   createUser: (user) => {
     return axios({
       method: 'post',
-      url: '/api/users/',
+      url: '/users/',
       data: {
         email: user.email,
         password: user.password
@@ -39,7 +40,7 @@ var Api = {
   authenticateUser: (user) => {
     return axios({
       method: 'get',
-      url: '/api/me',
+      url: '/me',
       auth: getAuthObject(user)
     });
   },
@@ -48,7 +49,7 @@ var Api = {
     var user = UserSession.getUser();
     return axios({
       method: 'get',
-      url: `/api/users/${user._id}/contacts`,
+      url: `/users/${user._id}/contacts`,
       auth: getAuthObject(user)
     });
   },
@@ -57,17 +58,17 @@ var Api = {
     var user = UserSession.getUser();
     return axios({
       method: 'post',
-      url: `/api/users/${user._id}/contacts`,
+      url: `/users/${user._id}/contacts`,
       auth: getAuthObject(user),
       data: toSchema(contact)
     });
   },
-  
+
   removeContact: (contactId) => {
     var user = UserSession.getUser();
     return axios({
       method: 'delete',
-      url: `/api/users/${user._id}/contacts/${contactId}`,
+      url: `/users/${user._id}/contacts/${contactId}`,
       auth: getAuthObject(user)
     });
   },
@@ -76,7 +77,7 @@ var Api = {
     var user = UserSession.getUser();
     return axios({
       method: 'put',
-      url: `/api/users/${user._id}/contacts/${contact._id}`,
+      url: `/users/${user._id}/contacts/${contact._id}`,
       auth: getAuthObject(user),
       data: toSchema(contact)
     });
