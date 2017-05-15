@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import ContactLayout from "./ContactLayout";
 import UserLayout from "./UserLayout.jsx";
 import UserStorage from "../services/UserSession.js";
-import Api from "../services/ContactService"
+import Api from "../services/ContactsApi"
 
 export default class App extends React.Component {
   constructor(props) {

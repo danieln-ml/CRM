@@ -2,17 +2,8 @@ import axios from "axios"
 import UserSession from "./UserSession"
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
-// {
-//   "_id": "590236c5a23f95606c184c53",
-//   "phoneNumbers": {
-//     "mobile": "415-555-5555"
-//   },
-//   "firstName": "Mary",
-//   "lastName": "Smith",
-//   "email": "mary@smith.com"
-// }
 
-function transformToPost(contact) {
+function toSchema(contact) {
   var body = {
     firstName: contact.firstName,
     lastName: contact.lastName,
@@ -29,18 +20,11 @@ function transformToPost(contact) {
   return body;
 }
 
-var Api = {
-  authenticateUser: (user) => {
-    return axios({
-      method: 'get',
-      url: '/api/me',
-      auth: {
-        username: user.email,
-        password: user.password
-      }
-    });
-  },
+function getAuthObject(user) {
+  return { username: user.email, password: user.password };
+}
 
+var Api = {
   createUser: (user) => {
     return axios({
       method: 'post',
@@ -52,51 +36,49 @@ var Api = {
     });
   },
 
-  // users/:id/contacts/* Methods
-  fetchAll: () => {
+  authenticateUser: (user) => {
+    return axios({
+      method: 'get',
+      url: '/api/me',
+      auth: getAuthObject(user)
+    });
+  },
+
+  fetchContacts: () => {
     var user = UserSession.getUser();
     return axios({
       method: 'get',
       url: `/api/users/${user._id}/contacts`,
-      auth: {
-        username: user.email,
-        password: user.password
-      }
+      auth: getAuthObject(user)
     });
   },
+
   createContact: (contact) => {
     var user = UserSession.getUser();
     return axios({
       method: 'post',
       url: `/api/users/${user._id}/contacts`,
-      auth: {
-        username: user.email,
-        password: user.password
-      },
-      data: transformToPost(contact)
+      auth: getAuthObject(user),
+      data: toSchema(contact)
     });
   },
+  
   removeContact: (contactId) => {
     var user = UserSession.getUser();
     return axios({
       method: 'delete',
       url: `/api/users/${user._id}/contacts/${contactId}`,
-      auth: {
-        username: user.email,
-        password: user.password
-      }
+      auth: getAuthObject(user)
     });
   },
+
   updateContact: (contact) => {
     var user = UserSession.getUser();
     return axios({
       method: 'put',
       url: `/api/users/${user._id}/contacts/${contact._id}`,
-      auth: {
-        username: user.email,
-        password: user.password
-      },
-      data: transformToPost(contact)
+      auth: getAuthObject(user),
+      data: toSchema(contact)
     });
   }
 };

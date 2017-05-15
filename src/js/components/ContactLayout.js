@@ -1,5 +1,5 @@
 import React from "react";
-import ContactApi from "../services/ContactService.js";
+import ContactApi from "../services/ContactsApi.js";
 import ContactList from "./contactList/ContactList.jsx";
 import ContactForm from "./contactForm/ContactForm.jsx";
 
@@ -26,7 +26,7 @@ export default class ContactLayout extends React.Component {
 
   componentDidMount() {
     var self = this;
-    ContactApi.fetchAll().then(
+    ContactApi.fetchContacts().then(
       function(res) {
         var contacts = res.data.map(contact => {
           return {
