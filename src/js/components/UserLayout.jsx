@@ -15,7 +15,6 @@ export default class UserLayout extends React.Component {
   }
 
   onInputChange = (name, value) => {
-    console.log(name, value);
     var user = Object.assign({}, this.state.user);
     user[name] = value
     this.setState({ user: user })
