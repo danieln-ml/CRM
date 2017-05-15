@@ -32,8 +32,8 @@ function transformToPost(contact) {
 var Api = {
   authenticateUser: (user) => {
     return axios({
-      method: 'post',
-      url: '/api/login',
+      method: 'get',
+      url: '/api/me',
       auth: {
         username: user.email,
         password: user.password

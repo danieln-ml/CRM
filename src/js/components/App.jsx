@@ -28,7 +28,7 @@ export default class App extends React.Component {
   loginHandler = (user) => {
     Api.authenticateUser(user).then(
       (response) => {
-        var userId = response.data.userId;
+        var userId = response.data._id;
         UserSession.setUser({
           _id: userId,
           email: user.email,
