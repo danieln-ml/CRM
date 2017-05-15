@@ -13,7 +13,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 // }
 
 function transformToPost(contact) {
-  return {
+  var body = {
     firstName: contact.firstName,
     lastName: contact.lastName,
     email: contact.email,
@@ -22,7 +22,11 @@ function transformToPost(contact) {
       work: contact.phoneWork,
       home: contact.phoneHome
     }
+  };
+  if (contact._id) {
+    body._id = contact._id;
   }
+  return body;
 }
 
 var Api = {
@@ -72,11 +76,28 @@ var Api = {
       data: transformToPost(contact)
     });
   },
-  delete: (id) => {
-    return axios.delete('/api/contacts/' + id);
+  removeContact: (contactId) => {
+    var user = UserSession.getUser();
+    return axios({
+      method: 'delete',
+      url: `/api/users/${user._id}/contacts/${contactId}`,
+      auth: {
+        username: user.email,
+        password: user.password
+      }
+    });
   },
-  update: (contact) => {
-    return axios.put(`/api/contacts/${contact._id }`, contact);
+  updateContact: (contact) => {
+    var user = UserSession.getUser();
+    return axios({
+      method: 'put',
+      url: `/api/users/${user._id}/contacts/${contact._id}`,
+      auth: {
+        username: user.email,
+        password: user.password
+      },
+      data: transformToPost(contact)
+    });
   }
 };
 

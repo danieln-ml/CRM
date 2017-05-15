@@ -103,11 +103,46 @@ export default class ContactLayout extends React.Component {
   }
 
   handleDeleteContact = (contactId) => {
-    console.log('bowsing a deletes')
+    var self = this;
+    ContactApi.removeContact(contactId)
+      .then( (response) => {
+        console.log('removal successful');
+        var cIndex = self.state.contacts.findIndex(function(cont) {
+          return cont._id === contactId;
+        });
+        self.state.contacts.splice(cIndex, 1);
+
+        self.setState({
+          selectedContact: initContact(),
+          contacts: self.state.contacts.slice()
+        })
+      },
+      function(err) {
+        alert(err);
+      }
+    );
   }
 
   handleUpdateContact = (contactId) => {
-    console.log('bowsing a update')
+    var self = this;
+    var cIndex = self.state.contacts.findIndex(function(cont) {
+      return cont._id === contactId;
+    });
+    var contact = Object.assign({}, self.state.selectedContact);
+    self.state.contacts[cIndex] = contact;
+
+    ContactApi.updateContact(contact)
+      .then( (response) => {
+        console.log('update successful');
+        self.setState({
+          selectedContact: initContact(),
+          contacts: self.state.contacts.slice()
+        })
+      },
+      function(err) {
+        alert(err);
+      }
+    );
   }
 
   render() {
