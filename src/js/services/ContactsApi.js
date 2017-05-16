@@ -2,9 +2,11 @@ import axios from "axios"
 import UserSession from "./UserSession"
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
+
 // axios.defaults.baseURL = 'https://glacial-journey-40070.herokuapp.com';
 axios.defaults.baseURL = 'http://127.0.0.1:9900';
 // axios.defaults.baseURL = 'http://10.78.177.51:9900';
+
 
 function toSchema(contact) {
   var body = {
@@ -31,7 +33,11 @@ var Api = {
   createUser: (user) => {
     return axios({
       method: 'post',
+<<<<<<< HEAD
       url: '/users',
+=======
+      url: '/users/',
+>>>>>>> 3d3398d045fdc29ea66502542c15d713cf24d9c7
       data: {
         email: user.email,
         password: user.password
