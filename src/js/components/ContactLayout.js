@@ -26,8 +26,7 @@ export default class ContactLayout extends React.Component {
 
   componentDidMount() {
     var self = this;
-    ContactApi.fetchContacts().then(
-      function(res) {
+    ContactApi.fetchContacts().then( (res) => {
         var contacts = res.data.map(contact => {
           return {
             _id: contact._id,
@@ -41,7 +40,7 @@ export default class ContactLayout extends React.Component {
         });
         self.setState({ contacts: contacts });
       },
-      function(error) {
+      (error) => {
         console.error(error.message);
       }
     );
@@ -58,31 +57,30 @@ export default class ContactLayout extends React.Component {
       return contact._id ===  id;
     });
     this.setState({'selectedContact': Object.assign({}, selectedContact) });
-    console.log(this.state.selectedContact);
   }
 
   handleChangeContact = (key, val) => {
     var selectedContact = this.state.selectedContact;
+    var contacts = this.state.contacts;
     selectedContact[key] = val;
 
     if (selectedContact._id) {
-      var cIndex = this.state.contacts.findIndex((currContact) => {
+      var cIndex = contacts.findIndex((currContact) => {
         return selectedContact._id === currContact._id;
       });
 
       if (cIndex !== -1) {
-        this.state.contacts[cIndex] = selectedContact;
+        contacts[cIndex] = selectedContact;
       }
     }
 
     this.setState({
       "selectedContact": Object.assign({}, selectedContact),
-      "contacts": this.state.contacts.slice()
+      "contacts": contacts.slice()
     });
   }
 
   handleCreateContact = (contact) => {
-    var self = this;
     ContactApi.createContact(contact).then( (response) => {
         var contactId = response.data._id;
         var newContact = Object.assign(contact, { _id: contactId } );
@@ -134,7 +132,7 @@ export default class ContactLayout extends React.Component {
           contacts: self.state.contacts.slice()
         })
       },
-      function(err) {
+      (err) => {
         alert(err);
       }
     );

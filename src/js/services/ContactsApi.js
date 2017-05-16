@@ -33,11 +33,7 @@ var Api = {
   createUser: (user) => {
     return axios({
       method: 'post',
-<<<<<<< HEAD
       url: '/users',
-=======
-      url: '/users/',
->>>>>>> 3d3398d045fdc29ea66502542c15d713cf24d9c7
       data: {
         email: user.email,
         password: user.password
