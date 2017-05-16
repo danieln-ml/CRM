@@ -1,5 +1,5 @@
 import React from "react";
-import ContactInput from "./ContactInput.jsx";
+import ContactInput from "./Input.jsx";
 import ContactButtonBar from "./ContactButtonBar.jsx";
 
 const DISPLAY_NAMES = {
