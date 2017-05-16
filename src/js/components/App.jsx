@@ -45,9 +45,7 @@ export default class App extends React.Component {
   createHandler = (user) => {
     Api.createUser(user).then(
       (response) => {
-        // /users/:userId get the last element
-        var params = response.headers.location.split('/');
-        var userId = params[params.length - 1];
+        var userId = response.data._id;
         UserSession.setUser({
           _id: userId,
           email: user.email,

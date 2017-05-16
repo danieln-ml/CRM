@@ -62,33 +62,29 @@ export default class ContactLayout extends React.Component {
   }
 
   handleChangeContact = (key, val) => {
-    var copyContact = Object.assign({}, this.state.selectedContact);
-    copyContact[key] = val;
-    var copyContacts = this.state.contacts.slice();
+    var selectedContact = this.state.selectedContact;
+    selectedContact[key] = val;
 
-    if (copyContact._id) {
-      var indexOfElem = -1;
-      this.state.contacts.find((contact, index) => {
-        if (contact._id.$oid === this.state.selectedContact._id.$oid) {
-          indexOfElem = index;
-        }
+    if (selectedContact._id) {
+      var cIndex = this.state.contacts.findIndex((currContact) => {
+        return selectedContact._id === currContact._id;
       });
-      if (indexOfElem !== -1) {
-        copyContacts[indexOfElem] = copyContact;
+
+      if (cIndex !== -1) {
+        this.state.contacts[cIndex] = selectedContact;
       }
     }
 
     this.setState({
-      "selectedContact": copyContact,
-      "contacts": copyContacts
+      "selectedContact": Object.assign({}, selectedContact),
+      "contacts": this.state.contacts.slice()
     });
   }
 
   handleCreateContact = (contact) => {
     var self = this;
     ContactApi.createContact(contact).then( (response) => {
-        var params = response.headers.location.split('/');
-        var contactId = params[params.length - 1];
+        var contactId = response.data._id;
         var newContact = Object.assign(contact, { _id: contactId } );
         self.state.contacts.push(newContact);
         self.setState({
