@@ -102,8 +102,7 @@ export default class ContactLayout extends React.Component {
     var self = this;
     ContactApi.removeContact(contactId)
       .then( (response) => {
-        console.log('removal successful');
-        var cIndex = self.state.contacts.findIndex(function(cont) {
+        var cIndex = self.state.contacts.findIndex((cont) => {
           return cont._id === contactId;
         });
         self.state.contacts.splice(cIndex, 1);
@@ -121,7 +120,7 @@ export default class ContactLayout extends React.Component {
 
   handleUpdateContact = (contactId) => {
     var self = this;
-    var cIndex = self.state.contacts.findIndex(function(cont) {
+    var cIndex = self.state.contacts.findIndex((cont) => {
       return cont._id === contactId;
     });
     var contact = Object.assign({}, self.state.selectedContact);
@@ -142,6 +141,7 @@ export default class ContactLayout extends React.Component {
   }
 
   render() {
+    var titleText = this.state.selectedContact._id ? "Edit Contact": "Create Contact";
     return (
       <div className="row">
         <div className="col-md-6">
@@ -149,7 +149,7 @@ export default class ContactLayout extends React.Component {
           <button onClick={this.addStagedContact}>Add Contact</button>
         </div>
         <div className="col-md-6">
-          <h4>Add Contact</h4>
+          <h4>{titleText}</h4>
           <ContactForm
             contact={this.state.selectedContact}
             onChangeContact={this.handleChangeContact}

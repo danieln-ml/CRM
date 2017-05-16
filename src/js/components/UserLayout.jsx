@@ -21,9 +21,6 @@ export default class UserLayout extends React.Component {
   }
 
   render() {
-    var formStyles = {
-      padding: "2rem"
-    };
     var user = this.state.user;
     var actionButton = this.props.onCreate ?
       <a href="#" class="btn btn-default" onClick={() => { this.props.createHandler(this.state.user); }}>Create</a>:
@@ -33,7 +30,7 @@ export default class UserLayout extends React.Component {
     return (
       <div>
         {hTag}
-        <form style={formStyles}>
+        <form>
           <FormInput onInputChange={this.onInputChange}
             value={user.email}
             name="email"

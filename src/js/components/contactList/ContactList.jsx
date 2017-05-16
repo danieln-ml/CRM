@@ -16,9 +16,7 @@ export default class ContactList extends React.Component {
       var selectedContact = this.props.selectedContact;
       var isSelected = selectedContact._id && selectedContact._id === cId;
       return (
-        <li key={cId}
-          className={isSelected ? "selected" : ""}
-          onClick={(e) => this.props.selectHandler(cId) }> {fullName}</li>
+        <li key={cId} className={isSelected ? "selected" : ""} onClick={clickHandler}> {fullName}</li>
       );
     });
     return <ul>{contactList}</ul>;

@@ -18,7 +18,7 @@ export default class FormInput extends React.Component {
   render() {
     return (
       <div className="form-group">
-        <label className="form-label" for={this.props.name}>{this.props.name}</label>
+        <label className="form-label" for={this.props.name}>{this.props.label}</label>
         <div>
           <input type="text"
             className="form-control"
