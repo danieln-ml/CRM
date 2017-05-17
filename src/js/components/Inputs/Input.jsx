@@ -2,28 +2,24 @@ import React from "react"
 
 export default class FormInput extends React.Component {
 
-  handleInputChange = (key, value) => {
-    return (event) => {
-      const target = event.target
-      const value = target.value
-      const key = target.name
-      this.props.onInputChange(key, value)
-    }
+  handleInputChange = (e) => {
+    const {value} = e.target
+    const { name } = this.props
+    this.props.handleChange(name, value)
   }
 
   render() {
+    const  { name, value, placeholder, label } = this.props
     return (
       <div className="form-group">
-        <label className="form-label" for={this.props.name}>{this.props.label}</label>
-        <div>
-          <input type="text"
-            className="form-control"
-            placeholder={this.props.placeholder}
-            name={this.props.name}
-            id={this.props.name}
-            value={this.props.value}
-            onChange={this.handleInputChange(this.props.name, this.props.value)} />
-          </div>
+        <label className="form-label" for={name}>{label}</label>
+        <input type="text"
+          className="form-control"
+          placeholder={placeholder}
+          name={name}
+          id={name}
+          value={value}
+          onChange={this.handleInputChange} />
       </div>
     )
   }

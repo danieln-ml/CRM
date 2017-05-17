@@ -1,47 +1,47 @@
 import React from "react"
-import FormInput from "../Inputs/Input.jsx"
+import Input from "../Inputs/Input.jsx"
 import UserSession from "../../services/UserSession"
 
 export default class UserLayout extends React.Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      user: {
-        email: '',
-        password: ''
-      }
+  state = {
+    user: {
+      email: '',
+      password: ''
     }
   }
 
-  onInputChange = (name, value) => {
+ handleChange = (name, value) => {
     let user = Object.assign({}, this.state.user)
     user[name] = value
     this.setState({ user: user })
   }
 
   render() {
-    let user = this.state.user
-    let actionButton = this.props.onCreate ?
-      <a href="#" class="btn btn-default" onClick={() => { this.props.createHandler(this.state.user) }}>Create</a>:
-      <a href="#" class="btn btn-primary" onClick={() => { this.props.loginHandler(this.state.user) }}>Login</a>
-    let hTag = this.props.onCreate ? <h3>Create Account</h3> : <h3>Sign In</h3>
-
+    const {user} = this.state
+    const {onCreate, createHandler, loginHandler} = this.props
     return (
       <div>
-        {hTag}
+        <h3> {onCreate ? 'Create Account' : 'Sign In'} </h3>
         <form>
-          <FormInput onInputChange={this.onInputChange}
+          <Input
+            label="Email"
+            handleChange={this.handleChange}
             value={user.email}
             name="email"
             placeholder="some email" />
 
-          <FormInput onInputChange={this.onInputChange}
+          <Input
+            label="Password"
+            handleChange={this.handleChange}
             value={user.password}
             name="password"
             placeholder="some password" />
-            
-          {actionButton}
+
+          {onCreate ?
+            <a className="btn btn-default" onClick={() => createHandler(user)}>Create</a> :
+            <a className="btn btn-primary" onClick={() => loginHandler(user)}>Login</a>
+          }
         </form>
       </div>
     )
