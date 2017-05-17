@@ -1,6 +1,6 @@
 import React from "react"
-import Create from "./Create.jsx"
-import Login from "./Login.jsx"
+import Create from "../Users/Create.jsx"
+import Login from "../Users/Login.jsx"
 
 export default class UserLayout extends React.Component {
 

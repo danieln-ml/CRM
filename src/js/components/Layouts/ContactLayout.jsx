@@ -1,7 +1,7 @@
 import React from "react"
 import ContactApi from "../../services/ContactsApi.js"
-import ContactList from "../ContactList/ContactList.jsx"
-import ContactForm from "../ContactForm/ContactForm.jsx"
+import ContactList from "../Contacts/ContactList.jsx"
+import ContactForm from "../Contacts/ContactForm.jsx"
 
 const initContact = () => {
   return {
