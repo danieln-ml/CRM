@@ -1,6 +1,6 @@
-var USER_KEY = "mLabUser"
+const USER_KEY = "mLabUser"
 
-var UserSession = {
+const UserSession = {
   setUser: function(user) {
     return sessionStorage.setItem(USER_KEY, JSON.stringify(user))
   },
