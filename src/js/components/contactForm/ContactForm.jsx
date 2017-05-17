@@ -14,9 +14,9 @@ const DISPLAY_NAMES = {
 export default class ContactForm extends React.Component {
 
   render() {
-    var contactFields = this.props.contact ? Object.keys(this.props.contact) : []
-    var inputFields = contactFields
-      .filter((field) => field !== '_id')
+    let contactFields = this.props.contact ? Object.keys(this.props.contact) : []
+    let inputFields = contactFields
+      .filter(field => field !== '_id')
       .map((field, index) => {
         return (
           <ContactInput key={index}
@@ -28,7 +28,7 @@ export default class ContactForm extends React.Component {
         )
       })
 
-    var contact = this.props.contact
+    let { contact } = this.props
     return (
       <div className='editable-view'>
         {inputFields}

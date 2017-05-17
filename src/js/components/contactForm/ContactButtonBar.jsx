@@ -2,31 +2,19 @@ import React from "react"
 
 export default class ContactButtonBar extends React.Component {
 
-  wrapIdHandler(contactId, fn) {
-    return (e) => { fn(contactId) }
-  }
-
-  wrapCreateHandler(contact, fn) {
-    return (e) => { fn(contact) }
-  }
-
   render() {
-    var contact = this.props.contact
-    var cId = contact && contact._id
+    const {contact} = this.props
+    const cId = contact && contact._id
+    let buttons;
     if (cId) {
-      return (
-        <div class="button-bar">
-          <button onClick={this.wrapIdHandler(cId, this.props.onUpdateContact)}>Save</button>
-          <button onClick={this.wrapIdHandler(cId, this.props.onDeleteContact)}>Delete</button>
-        </div>
-      )
+      buttons = [
+        <button key="Save" onClick={(e) => this.props.onUpdateContact(cId)}>Save</button>,
+        <button key="Delete" onClick={(e) => this.props.onDeleteContact(cId)}>Delete</button>
+      ]
     }
     else {
-      return (
-        <div class="button-bar">
-          <button onClick={this.wrapCreateHandler(contact, this.props.onCreateContact)}>Create</button>
-        </div>
-      )
+      buttons = <button onClick={(e) => this.props.onCreateContact(contact)}>Create</button>
     }
+    return <div className="button-bar"> {buttons} </div>
   }
 }

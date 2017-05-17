@@ -3,7 +3,7 @@ import ContactApi from "../../services/ContactsApi.js"
 import ContactList from "../ContactList/ContactList.jsx"
 import ContactForm from "../ContactForm/ContactForm.jsx"
 
-var initContact = () => {
+const initContact = () => {
   return {
     firstName: "",
     lastName: "",
@@ -26,7 +26,7 @@ export default class ContactLayout extends React.Component {
 
   componentDidMount() {
     ContactApi.fetchContacts().then( (res) => {
-        var contacts = res.data.map(contact => {
+        let contacts = res.data.map(contact => {
           return {
             _id: contact._id,
             firstName: contact.firstName,
@@ -52,22 +52,16 @@ export default class ContactLayout extends React.Component {
   }
 
   handleSelectContact = (id) => {
-    var selectedContact = this.state.contacts.find((contact) => {
-      return contact._id ===  id
-    })
+    let selectedContact = this.state.contacts.find(c => c._id ===  id)
     this.setState({'selectedContact': Object.assign({}, selectedContact) })
   }
 
   handleChangeContact = (key, val) => {
-    var selectedContact = this.state.selectedContact
-    var contacts = this.state.contacts
+    let { selectedContact, contacts } = this.state;
     selectedContact[key] = val
 
     if (selectedContact._id) {
-      var cIndex = contacts.findIndex((currContact) => {
-        return selectedContact._id === currContact._id
-      })
-
+      let cIndex = contacts.findIndex(c => selectedContact._id === c._id)
       if (cIndex !== -1) {
         contacts[cIndex] = selectedContact
       }
@@ -84,8 +78,8 @@ export default class ContactLayout extends React.Component {
   handleCreateContact = (contact) => {
     ContactApi.createContact(contact).then(
       (response) => {
-        var contactId = response.data._id
-        var newContact = Object.assign(contact, { _id: contactId } )
+        let { _id } = response.data
+        let newContact = Object.assign(contact, { _id: _id } )
         this.state.contacts.push(newContact)
         this.setState({
           selectedContact: initContact(),
@@ -99,9 +93,7 @@ export default class ContactLayout extends React.Component {
   handleDeleteContact = (contactId) => {
     ContactApi.removeContact(contactId).then(
       (response) => {
-        var cIndex = this.state.contacts.findIndex((cont) => {
-          return cont._id === contactId
-        })
+        let cIndex = this.state.contacts.findIndex(c => c._id === contactId)
         this.state.contacts.splice(cIndex, 1)
 
         this.setState({
@@ -114,10 +106,8 @@ export default class ContactLayout extends React.Component {
   }
 
   handleUpdateContact = (contactId) => {
-    var cIndex = this.state.contacts.findIndex((cont) => {
-      return cont._id === contactId
-    })
-    var contact = Object.assign({}, this.state.selectedContact)
+    const cIndex = this.state.contacts.findIndex(c => c._id === contactId)
+    const contact = Object.assign({}, this.state.selectedContact)
     this.state.contacts[cIndex] = contact
 
     ContactApi.updateContact(contact).then(
@@ -132,11 +122,14 @@ export default class ContactLayout extends React.Component {
   }
 
   render() {
-    var titleText = this.state.selectedContact._id ? "Edit Contact": "Create Contact"
+    const titleText = this.state.selectedContact._id ? "Edit Contact": "Create Contact"
     return (
       <div className="row">
         <div className="col-md-6">
-          <ContactList contacts={this.state.contacts} selectedContact={this.state.selectedContact} handleSelectContact={this.handleSelectContact} />
+          <ContactList
+            contacts={this.state.contacts}
+            selectedContact={this.state.selectedContact}
+            handleSelectContact={this.handleSelectContact} />
           <button onClick={this.addStagedContact}>Add Contact</button>
         </div>
         <div className="col-md-6">

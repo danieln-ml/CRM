@@ -1,12 +1,8 @@
 import React from "react"
 
 export default class FormInput extends React.Component {
-  constructor(props) {
-    super(props)
-    this.handleInputChange.bind(this)
-  }
 
-  handleInputChange(key, value) {
+  handleInputChange = (key, value) => {
     return (event) => {
       const target = event.target
       const value = target.value

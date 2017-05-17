@@ -15,17 +15,17 @@ export default class UserLayout extends React.Component {
   }
 
   onInputChange = (name, value) => {
-    var user = Object.assign({}, this.state.user)
+    let user = Object.assign({}, this.state.user)
     user[name] = value
     this.setState({ user: user })
   }
 
   render() {
-    var user = this.state.user
-    var actionButton = this.props.onCreate ?
+    let user = this.state.user
+    let actionButton = this.props.onCreate ?
       <a href="#" class="btn btn-default" onClick={() => { this.props.createHandler(this.state.user) }}>Create</a>:
       <a href="#" class="btn btn-primary" onClick={() => { this.props.loginHandler(this.state.user) }}>Login</a>
-    var hTag = this.props.onCreate ? <h3>Create Account</h3> : <h3>Sign In</h3>
+    let hTag = this.props.onCreate ? <h3>Create Account</h3> : <h3>Sign In</h3>
 
     return (
       <div>
@@ -40,6 +40,7 @@ export default class UserLayout extends React.Component {
             value={user.password}
             name="password"
             placeholder="some password" />
+            
           {actionButton}
         </form>
       </div>

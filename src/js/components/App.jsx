@@ -5,31 +5,31 @@ import UserLayout from "./Layouts/UserLayout.jsx"
 import UserStorage from "../services/UserSession.js"
 import Api from "../services/ContactsApi"
 
+const emptyUser = () => {
+  return {
+    email: '',
+    password: '',
+    contacts: []
+  }
+}
+
 export default class App extends React.Component {
   constructor(props) {
     super(props)
-    var hasUserSession = !!UserStorage.getUser()
+    let hasUserSession = !!UserStorage.getUser()
     this.state = {
       hasUserSession: hasUserSession,
       onCreate: false,
-      user: hasUserSession ? UserSession.getUser() : this.emptyUser()
-    }
-  }
-
-  emptyUser() {
-    return {
-      email: '',
-      password: '',
-      contacts: []
+      user: hasUserSession ? UserSession.getUser() : emptyUser()
     }
   }
 
   loginHandler = (user) => {
     Api.authenticateUser(user).then(
       (response) => {
-        var userId = response.data._id
+        let { _id } = response.data
         UserSession.setUser({
-          _id: userId,
+          _id: _id,
           email: user.email,
           password: user.password
         })
@@ -44,9 +44,9 @@ export default class App extends React.Component {
   createHandler = (user) => {
     Api.createUser(user).then(
       (response) => {
-        var userId = response.data._id
+        let { _id } = response.data
         UserSession.setUser({
-          _id: userId,
+          _id: _id,
           email: user.email,
           password: user.password
         })
@@ -62,7 +62,7 @@ export default class App extends React.Component {
     UserSession.removeUser()
     this.setState({
       hasUserSession: false,
-      user: { email: '', password: ''}
+      user: emptyUser()
     })
   }
 
