@@ -91,18 +91,20 @@ export default class ContactLayout extends React.Component {
   }
 
   handleDeleteContact = (contactId) => {
-    ContactApi.removeContact(contactId).then(
-      (response) => {
-        let cIndex = this.state.contacts.findIndex(c => c._id === contactId)
-        this.state.contacts.splice(cIndex, 1)
+    if (confirm("Are you sure you want to delete this contact?")) {
+      ContactApi.removeContact(contactId).then(
+        (response) => {
+          let cIndex = this.state.contacts.findIndex(c => c._id === contactId)
+          this.state.contacts.splice(cIndex, 1)
 
-        this.setState({
-          selectedContact: initContact(),
-          contacts: this.state.contacts.slice()
-        })
-      },
-      this.handleServerError
-    )
+          this.setState({
+            selectedContact: initContact(),
+            contacts: this.state.contacts.slice()
+          })
+        },
+        this.handleServerError
+      )
+    }
   }
 
   handleUpdateContact = (contactId) => {
@@ -125,22 +127,21 @@ export default class ContactLayout extends React.Component {
     const titleText = this.state.selectedContact._id ? "Edit Contact": "Create Contact"
     return (
       <div className="row">
-        <div className="col-md-6">
-          <ContactList
-            contacts={this.state.contacts}
-            selectedContact={this.state.selectedContact}
-            handleSelectContact={this.handleSelectContact} />
-          <button onClick={this.addStagedContact}>Add Contact</button>
-        </div>
-        <div className="col-md-6">
-          <h4>{titleText}</h4>
-          <ContactForm
-            contact={this.state.selectedContact}
-            onChangeContact={this.handleChangeContact}
-            onCreateContact={this.handleCreateContact}
-            onUpdateContact={this.handleUpdateContact}
-            onDeleteContact={this.handleDeleteContact} />
-        </div>
+        <ContactList
+          contacts={this.state.contacts}
+          selectedContact={this.state.selectedContact}
+          handleSelectContact={this.handleSelectContact}
+          addContactAction={this.addStagedContact}
+          className="col-md-6" />
+
+        <ContactForm
+          contact={this.state.selectedContact}
+          title={titleText}
+          className="col-md-6"
+          onChangeContact={this.handleChangeContact}
+          onCreateContact={this.handleCreateContact}
+          onUpdateContact={this.handleUpdateContact}
+          onDeleteContact={this.handleDeleteContact} />
       </div>
     )
   }

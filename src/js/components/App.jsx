@@ -4,6 +4,7 @@ import ContactLayout from "./Layouts/ContactLayout.jsx"
 import UserLayout from "./Layouts/UserLayout.jsx"
 import UserStorage from "../services/UserSession.js"
 import Api from "../services/ContactsApi"
+import Header from "./Base/Header.jsx"
 
 const emptyUser = () => {
   return {
@@ -95,10 +96,12 @@ export default class App extends React.Component {
 
     return (
       <div>
-        <header>
+        <Header>
           {actionLink}
-        </header>
-        {body}
+        </Header>
+        <div className="container content">
+          {body}
+        </div>
       </div>
     )
   }

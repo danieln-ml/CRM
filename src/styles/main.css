@@ -1,14 +1,92 @@
-.selected {
-  background-color: #ffc107;
+
+*, *;before, *:after {
+  box-sizing: inherit;
+  content: none;
 }
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #F8F8F9;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  cursor: pointer;
+}
+
 .column {
   flex: 1;
 }
+
 .main {
   display: flex;
 }
 
-header {
-  margin: 1rem;
-  border: 1px solid;
+.form-control, input {
+  border: 1px solid #E5E5E5;
+}
+
+
+.header {
+  border-bottom: 1px solid #232323;
+  height: 90px;
+  background-color: #373F46;
+}
+
+.header--content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.header--content:before,
+.header--content:after {
+  display: none;
+}
+
+.header--title {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: white;
+}
+
+.header--links {
+  color: white;
+}
+
+.header--links a {
+  color: white;
+}
+
+.content {
+  padding-top: 2rem;
+}
+
+.contact-list {
+  padding-left: 0;
+}
+
+.contact-list--item {
+  padding: 1rem;
+  list-style: none;
+  cursor: pointer;
+}
+
+.contact-list--item:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.contact-list--item.s-selected,
+.contact-list--item.s-selected:hover {
+  background-color: #ffc107;
+  cursor: initial;
+}
+
+.contact-list--item + .contact-list--item {
+  border-top: 1px solid #E5E5E5;
 }

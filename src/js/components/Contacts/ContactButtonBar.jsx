@@ -8,8 +8,8 @@ export default class ContactButtonBar extends React.Component {
     let buttons;
     if (cId) {
       buttons = [
-        <button key="Save" onClick={(e) => this.props.onUpdateContact(cId)}>Save</button>,
-        <button key="Delete" onClick={(e) => this.props.onDeleteContact(cId)}>Delete</button>
+        <button key="Delete" onClick={(e) => this.props.onDeleteContact(cId)}>Delete</button>,
+        <button key="Save" onClick={(e) => this.props.onUpdateContact(cId)}>Save</button>
       ]
     }
     else {

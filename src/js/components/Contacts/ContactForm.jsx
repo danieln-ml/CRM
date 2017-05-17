@@ -14,30 +14,37 @@ const DISPLAY_NAMES = {
 export default class ContactForm extends React.Component {
 
   render() {
-    let contactFields = this.props.contact ? Object.keys(this.props.contact) : []
-    let inputFields = contactFields
-      .filter(field => field !== '_id')
-      .map((field, index) => {
-        return (
-          <ContactInput key={index}
-            name={field}
-            label={DISPLAY_NAMES[field]}
-            value={this.props.contact ? this.props.contact[field] : ''}
-            placeholder={'some placeholder'}
-            onInputChange={this.props.onChangeContact} />
-        )
-      })
+    const { contact, title, className, onCreateContact, onUpdateContact, onDeleteContact } = this.props
+    let contactFields = contact ? Object.keys(contact) : []
 
-    let { contact } = this.props
     return (
-      <div className='editable-view'>
-        {inputFields}
-        <ContactButtonBar
-          contact={contact}
-          onCreateContact={this.props.onCreateContact}
-          onUpdateContact={this.props.onUpdateContact}
-          onDeleteContact={this.props.onDeleteContact} />
-      </div>
+      <section className={className}>
+        <h3>{title}</h3>
+        <div className='editable-view'>
+
+          {contactFields
+            .filter(field => field !== '_id')
+            .map((field, index) => this.renderInput(field, index))
+          }
+
+          <ContactButtonBar
+            contact={contact}
+            onCreateContact={onCreateContact}
+            onUpdateContact={onUpdateContact}
+            onDeleteContact={onDeleteContact} />
+        </div>
+      </section>
+    )
+  }
+
+  renderInput(field, index) {
+    return (
+      <ContactInput key={index}
+        name={field}
+        label={DISPLAY_NAMES[field]}
+        value={this.props.contact ? this.props.contact[field] : ''}
+        placeholder={DISPLAY_NAMES[field]}
+        handleChange={this.props.onChangeContact} />
     )
   }
 }

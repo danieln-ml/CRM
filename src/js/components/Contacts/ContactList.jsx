@@ -3,16 +3,31 @@ import React from "react"
 export default class ContactList extends React.Component {
 
   render() {
-    const contactList = this.props.contacts.map((contact) => {
-      const { _id, firstName, lastName } = contact
-      const selectedId = this.props.selectedContact._id
-      const fullName = firstName + " " + lastName
-      const clickHandler = (e) => this.props.handleSelectContact(_id)
-      const selectedClass = selectedId && selectedId === _id ? "selected" : ""
+    return (
+      <section className={this.props.className}>
+        <h3>Contacts</h3>
+        { this.props.selectedContact._id &&
+          <button onClick={this.props.addContactAction}>Add Contact</button>
+        }
+        <ul className="contact-list">
+          {this.props.contacts.map((contact) => this.renderListItem(contact))}
+        </ul>
+      </section>
+    )
+  }
 
-      return <li key={_id} className={selectedClass} onClick={clickHandler}>{fullName}</li>
-    })
+  renderListItem(contact) {
+    const { _id, firstName, lastName } = contact
+    const selectedId = this.props.selectedContact._id
+    const selectedClass = selectedId && selectedId === _id ? "s-selected" : ""
 
-    return <ul> {contactList} </ul>
+    return (
+      <li
+        key={_id}
+        className={`contact-list--item ${selectedClass}`}
+        onClick={(e) => this.props.handleSelectContact(_id)}>
+        {`${firstName} ${lastName}`}
+      </li>
+    )
   }
 }
