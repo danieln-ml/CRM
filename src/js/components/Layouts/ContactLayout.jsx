@@ -25,7 +25,6 @@ export default class ContactLayout extends React.Component {
   }
 
   componentDidMount() {
-    var self = this
     ContactApi.fetchContacts().then( (res) => {
         var contacts = res.data.map(contact => {
           return {
@@ -38,7 +37,7 @@ export default class ContactLayout extends React.Component {
             phoneHome: contact.phoneNumbers.home || '',
           }
         })
-        self.setState({ contacts: contacts })
+        this.setState({ contacts: contacts })
       },
       (error) => {
         console.error(error.message)
@@ -80,61 +79,55 @@ export default class ContactLayout extends React.Component {
     })
   }
 
+  handleServerError = (error) => { alert(error) }
+
   handleCreateContact = (contact) => {
-    ContactApi.createContact(contact).then( (response) => {
+    ContactApi.createContact(contact).then(
+      (response) => {
         var contactId = response.data._id
         var newContact = Object.assign(contact, { _id: contactId } )
-        self.state.contacts.push(newContact)
-        self.setState({
+        this.state.contacts.push(newContact)
+        this.setState({
           selectedContact: initContact(),
-          contacts: self.state.contacts.slice()
+          contacts: this.state.contacts.slice()
         })
       },
-      function(err) {
-        alert(err)
-      }
+      this.handleServerError
     )
   }
 
   handleDeleteContact = (contactId) => {
-    var self = this
-    ContactApi.removeContact(contactId)
-      .then( (response) => {
-        var cIndex = self.state.contacts.findIndex((cont) => {
+    ContactApi.removeContact(contactId).then(
+      (response) => {
+        var cIndex = this.state.contacts.findIndex((cont) => {
           return cont._id === contactId
         })
-        self.state.contacts.splice(cIndex, 1)
+        this.state.contacts.splice(cIndex, 1)
 
-        self.setState({
+        this.setState({
           selectedContact: initContact(),
-          contacts: self.state.contacts.slice()
+          contacts: this.state.contacts.slice()
         })
       },
-      function(err) {
-        alert(err)
-      }
+      this.handleServerError
     )
   }
 
   handleUpdateContact = (contactId) => {
-    var self = this
-    var cIndex = self.state.contacts.findIndex((cont) => {
+    var cIndex = this.state.contacts.findIndex((cont) => {
       return cont._id === contactId
     })
-    var contact = Object.assign({}, self.state.selectedContact)
-    self.state.contacts[cIndex] = contact
+    var contact = Object.assign({}, this.state.selectedContact)
+    this.state.contacts[cIndex] = contact
 
-    ContactApi.updateContact(contact)
-      .then( (response) => {
-        console.log('update successful')
-        self.setState({
+    ContactApi.updateContact(contact).then(
+      (response) => {
+        this.setState({
           selectedContact: initContact(),
-          contacts: self.state.contacts.slice()
+          contacts: this.state.contacts.slice()
         })
       },
-      (err) => {
-        alert(err)
-      }
+      this.handleServerError
     )
   }
 
