@@ -7,3 +7,8 @@
 .main {
   display: flex;
 }
+
+header {
+  margin: 1rem;
+  border: 1px solid;
+}

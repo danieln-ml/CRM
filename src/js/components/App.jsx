@@ -1,8 +1,7 @@
 import React from "react"
-import ReactDOM from "react-dom"
 
-import ContactLayout from "./ContactLayout"
-import UserLayout from "./UserLayout.jsx"
+import ContactLayout from "./Layouts/ContactLayout.jsx"
+import UserLayout from "./Layouts/UserLayout.jsx"
 import UserStorage from "../services/UserSession.js"
 import Api from "../services/ContactsApi"
 

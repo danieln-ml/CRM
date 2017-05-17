@@ -1,6 +1,6 @@
 import React from "react"
-import FormInput from "./contactForm/Input.jsx"
-import UserSession from "../services/UserSession"
+import FormInput from "../Inputs/Input.jsx"
+import UserSession from "../../services/UserSession"
 
 export default class UserLayout extends React.Component {
 
