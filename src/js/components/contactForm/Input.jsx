@@ -1,18 +1,18 @@
-import React from "react";
+import React from "react"
 
 export default class FormInput extends React.Component {
   constructor(props) {
-    super(props);
-    this.handleInputChange.bind(this);
+    super(props)
+    this.handleInputChange.bind(this)
   }
 
   handleInputChange(key, value) {
     return (event) => {
-      const target = event.target;
-      const value = target.value;
-      const key = target.name;
-      this.props.onInputChange(key, value);
-    };
+      const target = event.target
+      const value = target.value
+      const key = target.name
+      this.props.onInputChange(key, value)
+    }
   }
 
   render() {
@@ -29,6 +29,6 @@ export default class FormInput extends React.Component {
             onChange={this.handleInputChange(this.props.name, this.props.value)} />
           </div>
       </div>
-    );
+    )
   }
 }

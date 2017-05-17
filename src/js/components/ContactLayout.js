@@ -1,7 +1,7 @@
-import React from "react";
-import ContactApi from "../services/ContactsApi.js";
-import ContactList from "./contactList/ContactList.jsx";
-import ContactForm from "./contactForm/ContactForm.jsx";
+import React from "react"
+import ContactApi from "../services/ContactsApi.js"
+import ContactList from "./contactList/ContactList.jsx"
+import ContactForm from "./contactForm/ContactForm.jsx"
 
 var initContact = () => {
   return {
@@ -11,21 +11,21 @@ var initContact = () => {
     phoneMobile: "",
     phoneWork: "",
     phoneHome: ""
-  };
+  }
 }
 
 export default class ContactLayout extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       selectedContact: initContact(),
       contacts: []
-    };
-    this.componentDidMount.bind(this);
+    }
+    this.componentDidMount.bind(this)
   }
 
   componentDidMount() {
-    var self = this;
+    var self = this
     ContactApi.fetchContacts().then( (res) => {
         var contacts = res.data.map(contact => {
           return {
@@ -36,74 +36,74 @@ export default class ContactLayout extends React.Component {
             phoneMobile: contact.phoneNumbers.mobile || '',
             phoneWork: contact.phoneNumbers.work || '',
             phoneHome: contact.phoneNumbers.home || '',
-          };
-        });
-        self.setState({ contacts: contacts });
+          }
+        })
+        self.setState({ contacts: contacts })
       },
       (error) => {
-        console.error(error.message);
+        console.error(error.message)
       }
-    );
+    )
   }
 
   addStagedContact = () => {
     this.setState({
       selectedContact: initContact()
-    });
+    })
   }
 
   handleSelectContact = (id) => {
     var selectedContact = this.state.contacts.find((contact) => {
-      return contact._id ===  id;
-    });
-    this.setState({'selectedContact': Object.assign({}, selectedContact) });
+      return contact._id ===  id
+    })
+    this.setState({'selectedContact': Object.assign({}, selectedContact) })
   }
 
   handleChangeContact = (key, val) => {
-    var selectedContact = this.state.selectedContact;
-    var contacts = this.state.contacts;
-    selectedContact[key] = val;
+    var selectedContact = this.state.selectedContact
+    var contacts = this.state.contacts
+    selectedContact[key] = val
 
     if (selectedContact._id) {
       var cIndex = contacts.findIndex((currContact) => {
-        return selectedContact._id === currContact._id;
-      });
+        return selectedContact._id === currContact._id
+      })
 
       if (cIndex !== -1) {
-        contacts[cIndex] = selectedContact;
+        contacts[cIndex] = selectedContact
       }
     }
 
     this.setState({
       "selectedContact": Object.assign({}, selectedContact),
       "contacts": contacts.slice()
-    });
+    })
   }
 
   handleCreateContact = (contact) => {
     ContactApi.createContact(contact).then( (response) => {
-        var contactId = response.data._id;
-        var newContact = Object.assign(contact, { _id: contactId } );
-        self.state.contacts.push(newContact);
+        var contactId = response.data._id
+        var newContact = Object.assign(contact, { _id: contactId } )
+        self.state.contacts.push(newContact)
         self.setState({
           selectedContact: initContact(),
           contacts: self.state.contacts.slice()
         })
       },
       function(err) {
-        alert(err);
+        alert(err)
       }
-    );
+    )
   }
 
   handleDeleteContact = (contactId) => {
-    var self = this;
+    var self = this
     ContactApi.removeContact(contactId)
       .then( (response) => {
         var cIndex = self.state.contacts.findIndex((cont) => {
-          return cont._id === contactId;
-        });
-        self.state.contacts.splice(cIndex, 1);
+          return cont._id === contactId
+        })
+        self.state.contacts.splice(cIndex, 1)
 
         self.setState({
           selectedContact: initContact(),
@@ -111,35 +111,35 @@ export default class ContactLayout extends React.Component {
         })
       },
       function(err) {
-        alert(err);
+        alert(err)
       }
-    );
+    )
   }
 
   handleUpdateContact = (contactId) => {
-    var self = this;
+    var self = this
     var cIndex = self.state.contacts.findIndex((cont) => {
-      return cont._id === contactId;
-    });
-    var contact = Object.assign({}, self.state.selectedContact);
-    self.state.contacts[cIndex] = contact;
+      return cont._id === contactId
+    })
+    var contact = Object.assign({}, self.state.selectedContact)
+    self.state.contacts[cIndex] = contact
 
     ContactApi.updateContact(contact)
       .then( (response) => {
-        console.log('update successful');
+        console.log('update successful')
         self.setState({
           selectedContact: initContact(),
           contacts: self.state.contacts.slice()
         })
       },
       (err) => {
-        alert(err);
+        alert(err)
       }
-    );
+    )
   }
 
   render() {
-    var titleText = this.state.selectedContact._id ? "Edit Contact": "Create Contact";
+    var titleText = this.state.selectedContact._id ? "Edit Contact": "Create Contact"
     return (
       <div className="row">
         <div className="col-md-6">
@@ -156,6 +156,6 @@ export default class ContactLayout extends React.Component {
             onDeleteContact={this.handleDeleteContact} />
         </div>
       </div>
-    );
+    )
   }
 }

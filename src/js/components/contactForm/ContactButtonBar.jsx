@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 export default class ContactButtonBar extends React.Component {
 
@@ -11,22 +11,22 @@ export default class ContactButtonBar extends React.Component {
   }
 
   render() {
-    var contact = this.props.contact;
-    var cId = contact && contact._id;
+    var contact = this.props.contact
+    var cId = contact && contact._id
     if (cId) {
       return (
         <div class="button-bar">
           <button onClick={this.wrapIdHandler(cId, this.props.onUpdateContact)}>Save</button>
           <button onClick={this.wrapIdHandler(cId, this.props.onDeleteContact)}>Delete</button>
         </div>
-      );
+      )
     }
     else {
       return (
         <div class="button-bar">
           <button onClick={this.wrapCreateHandler(contact, this.props.onCreateContact)}>Create</button>
         </div>
-      );
+      )
     }
   }
 }

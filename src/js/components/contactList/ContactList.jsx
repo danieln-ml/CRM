@@ -1,24 +1,24 @@
-import React from "react";
+import React from "react"
 
 export default class ContactList extends React.Component {
 
   wrapSelectHandler(id, selectHandler) {
     return (e) => {
-      selectHandler(id);
-    };
+      selectHandler(id)
+    }
   }
 
   render() {
     var contactList = this.props.contacts.map((contact) => {
-      var cId = contact._id;
-      var fullName = contact.firstName + " " + contact.lastName;
-      var clickHandler = this.wrapSelectHandler(cId, this.props.handleSelectContact);
-      var selectedContact = this.props.selectedContact;
-      var isSelected = selectedContact._id && selectedContact._id === cId;
+      var cId = contact._id
+      var fullName = contact.firstName + " " + contact.lastName
+      var clickHandler = this.wrapSelectHandler(cId, this.props.handleSelectContact)
+      var selectedContact = this.props.selectedContact
+      var isSelected = selectedContact._id && selectedContact._id === cId
       return (
         <li key={cId} className={isSelected ? "selected" : ""} onClick={clickHandler}> {fullName}</li>
-      );
-    });
-    return <ul>{contactList}</ul>;
+      )
+    })
+    return <ul>{contactList}</ul>
   }
 }
