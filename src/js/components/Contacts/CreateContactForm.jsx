@@ -1,11 +1,12 @@
 import React from "react"
+import Form from "../Base/Form.jsx"
 
 export default class CreateContactForm extends React.Component {
 
   render() {
     const { submitHandler, children, className } = this.props
     return (
-      <form className={`contact-form ${className}`} onSubmit={submitHandler}>
+      <Form className={`contact-form ${className}`} onSubmit={submitHandler}>
         <div className="contact-form-top">
           <h3 className="contact-form-top--title">Create Contact</h3>
         </div>
@@ -16,7 +17,7 @@ export default class CreateContactForm extends React.Component {
             <button type="submit" className="btn btn-primary pull-right">Create Contact</button>
           </div>
         </div>
-      </form>
+      </Form>
     )
   }
 }

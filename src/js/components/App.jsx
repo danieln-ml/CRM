@@ -6,22 +6,23 @@ import UserStorage from "../services/UserSession.js"
 import Api from "../services/ContactsApi"
 import Header from "./Base/Header.jsx"
 
-const emptyUser = () => {
-  return {
-    email: '',
-    password: '',
-    contacts: []
-  }
-}
-
 export default class App extends React.Component {
+
   constructor(props) {
     super(props)
     let hasUserSession = !!UserStorage.getUser()
     this.state = {
       hasUserSession: hasUserSession,
-      onCreate: false,
-      user: hasUserSession ? UserSession.getUser() : emptyUser()
+      currentPage: 'Login',
+      user: hasUserSession ? UserSession.getUser() : this.emptyUser()
+    }
+  }
+
+  emptyUser() {
+    return {
+      email: '',
+      password: '',
+      contacts: []
     }
   }
 
@@ -37,7 +38,7 @@ export default class App extends React.Component {
         this.setState({hasUserSession: true})
       },
       (error) => {
-        console.log(error.response.data)
+        console.error(error.response.data)
       }
     )
   }
@@ -54,7 +55,7 @@ export default class App extends React.Component {
         this.setState({ hasUserSession: true })
       },
       (error) => {
-        console.log(error.response.data)
+        console.error(error.response.data)
       }
     )
   }
@@ -63,38 +64,44 @@ export default class App extends React.Component {
     UserSession.removeUser()
     this.setState({
       hasUserSession: false,
-      user: emptyUser()
+      user: this.emptyUser()
     })
   }
 
   createLinkHandler = () => {
-    this.setState({onCreate: true})
+    this.setState({currentPage: 'Create'})
   }
 
   loginLinkHandler = () => {
-    this.setState({onCreate: false})
+    this.setState({currentPage: 'Login'})
   }
 
   render() {
-    let body, buttonAction, buttonText
+    return (
+      <div>
+        <Header>
+          {this.renderHeaderButton()}
+        </Header>
+
+        <div className="container content">
+          {this.renderBody()}
+        </div>
+      </div>
+    )
+  }
+
+  renderHeaderButton() {
+    let buttonAction, buttonText
 
     if (this.state.hasUserSession) {
       buttonAction = this.logoutLinkHandler
       buttonText = "Log Out"
-      body = <ContactLayout contacts={this.state.user.contacts} />
-    
-    } else {
-      body = (
-        <UserLayout
-          loginHandler={this.loginHandler}
-          createHandler={this.createHandler}
-          onCreate={this.state.onCreate} />
-      )
 
-      if (this.state.onCreate) {
+    } else {
+      if (this.state.currentPage === 'Create') {
         buttonAction = this.loginLinkHandler
         buttonText = "Sign In"
-      
+
       } else {
         buttonAction = this.createLinkHandler
         buttonText = "Sign Up"
@@ -102,13 +109,21 @@ export default class App extends React.Component {
     }
 
     return (
-      <div>
-        <Header buttonAction={buttonAction} buttonText={buttonText} />
-
-        <div className="container content">
-          {body}
-        </div>
-      </div>
+      <button onClick={buttonAction} className="btn btn-warning btn-sm">{buttonText}</button>
     )
+  }
+
+  renderBody() {
+    if (this.state.hasUserSession) {
+      return <ContactLayout contacts={this.state.user.contacts} />
+
+    } else {
+      return (
+        <UserLayout
+          loginHandler={this.loginHandler}
+          createHandler={this.createHandler}
+          currentPage={this.state.currentPage} />
+      )
+    }
   }
 }

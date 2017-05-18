@@ -73,7 +73,7 @@ export default class ContactLayout extends React.Component {
     })
   }
 
-  handleServerError = (error) => { alert(error) }
+  handleServerError = (err) => { console.error(err) }
 
   handleCreateContact = (contact) => {
     ContactApi.createContact(contact).then(
@@ -90,8 +90,9 @@ export default class ContactLayout extends React.Component {
     )
   }
 
-  handleDeleteContact = (contactId) => {
+  handleDeleteContact = (contact) => {
     if (confirm("Are you sure you want to delete this contact?")) {
+      const contactId = contact._id
       ContactApi.removeContact(contactId).then(
         (response) => {
           let cIndex = this.state.contacts.findIndex(c => c._id === contactId)

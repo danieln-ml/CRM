@@ -1,6 +1,7 @@
 import React from "react"
-import Create from "../Users/Create.jsx"
-import Login from "../Users/Login.jsx"
+import Create from "../Users/CreateUser.jsx"
+import Login from "../Users/LoginUser.jsx"
+import Input from "../Inputs/Input.jsx"
 
 export default class UserLayout extends React.Component {
 
@@ -17,14 +18,39 @@ export default class UserLayout extends React.Component {
      this.setState({ user: user })
    }
 
-
   render() {
     const {user} = this.state
-    const {onCreate, createHandler, loginHandler} = this.props
+    const {currentPage, createHandler, loginHandler} = this.props
+    const userInputs = this.renderUserInputs()
     return (
-      onCreate ?
-        <Create createHandler={createHandler} user={user} handleChange={this.handleChange}/> :
-        <Login loginHandler={loginHandler} user={user} handleChange={this.handleChange}/>
+      currentPage === 'Create' ?
+        <Create onCreate={() => createHandler(user)}>
+          {userInputs}
+        </Create> :
+        <Login onLogin={() => loginHandler(user)}>
+          {userInputs}
+        </Login>
     )
+  }
+  renderUserInputs() {
+    const {email, password} = this.state.user
+      return [
+        <Input
+          key="Email"
+          label="Email"
+          type="email"
+          handleChange={this.handleChange}
+          value={email}
+          name="email"
+          placeholder="admin@carbon.io" />,
+        <Input
+          key="Password"
+          label="Password"
+          type="password"
+          handleChange={this.handleChange}
+          value={password}
+          name="password"
+          placeholder="Password" />
+      ]
   }
 }

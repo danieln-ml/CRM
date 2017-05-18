@@ -15,18 +15,9 @@ const DISPLAY_NAMES = {
 
 export default class ContactForm extends React.Component {
 
-  wrapSubmission = (handler, contact) => {
-    return (e) => {
-      handler(contact)
-      e.preventDefault()
-    }
-  }
-
   render() {
     const { contact, className, onCreateContact, onUpdateContact, onDeleteContact } = this.props
-    const createHandler = this.wrapSubmission(onCreateContact, contact)
-    const updateHandler = this.wrapSubmission(onUpdateContact, contact)
-    const deleteHandler = this.wrapSubmission(onDeleteContact, contact)
+    // const createHandler = this.wrapSubmission(onCreateContact, contact)
 
     const contactFields = contact ? Object.keys(contact) : []
     const contactInputs = (
@@ -35,17 +26,22 @@ export default class ContactForm extends React.Component {
         .map((field, index) => this.renderInput(field, index))
     )
 
+    const handleDeleteContact = (e) => {
+      onDeleteContact(contact)
+      e.preventDefault()
+    }
+
     return (
       contact._id ?
         <EditContactForm
-          submitHandler={updateHandler}
-          deleteHandler={deleteHandler}
+          submitHandler={() => onUpdateContact(contact)}
+          deleteHandler={handleDeleteContact}
           className="col-md-6">
           {contactInputs}
         </EditContactForm>
         :
         <CreateContactForm
-          submitHandler={createHandler}
+          submitHandler={() => onCreateContact(contact)}
           className="col-md-6">
           {contactInputs}
         </CreateContactForm>
