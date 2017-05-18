@@ -57,7 +57,7 @@ export default class ContactLayout extends React.Component {
   }
 
   handleChangeContact = (key, val) => {
-    let { selectedContact, contacts } = this.state;
+    let { selectedContact, contacts } = this.state
     selectedContact[key] = val
 
     if (selectedContact._id) {
@@ -124,7 +124,6 @@ export default class ContactLayout extends React.Component {
   }
 
   render() {
-    const titleText = this.state.selectedContact._id ? "Edit Contact": "Create Contact"
     return (
       <div className="row">
         <ContactList
@@ -136,7 +135,6 @@ export default class ContactLayout extends React.Component {
 
         <ContactForm
           contact={this.state.selectedContact}
-          title={titleText}
           className="col-md-6"
           onChangeContact={this.handleChangeContact}
           onCreateContact={this.handleCreateContact}

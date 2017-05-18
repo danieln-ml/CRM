@@ -1,6 +1,8 @@
 import React from "react"
 import Input from "../Inputs/Input.jsx"
-import ContactButtonBar from "./ContactButtonBar.jsx"
+import CreateContactForm from "./CreateContactForm.jsx"
+import EditContactForm from "./EditContactForm.jsx"
+
 
 const DISPLAY_NAMES = {
   'firstName': 'First Name',
@@ -13,27 +15,35 @@ const DISPLAY_NAMES = {
 
 export default class ContactForm extends React.Component {
 
+  wrapSubmission = (handler, contact) => {
+    return (e) => {
+      handler(contact)
+      e.preventDefault()
+    }
+  }
+
   render() {
-    const { contact, title, className, onCreateContact, onUpdateContact, onDeleteContact } = this.props
+    const { contact, className, onCreateContact, onUpdateContact, onDeleteContact } = this.props
+    const createHandler = this.wrapSubmission(onCreateContact, contact)
+    const updateHandler = this.wrapSubmission(onUpdateContact, contact)
+    const deleteHandler = this.wrapSubmission(onDeleteContact, contact)
+
     const contactFields = contact ? Object.keys(contact) : []
+    const contactInputs = (
+      contactFields
+        .filter(field => field !== '_id')
+        .map((field, index) => this.renderInput(field, index))
+    )
 
     return (
-      <section className={className}>
-        <h3>{title}</h3>
-        <div className='editable-view'>
-
-          {contactFields
-            .filter(field => field !== '_id')
-            .map((field, index) => this.renderInput(field, index))
-          }
-
-          <ContactButtonBar
-            contact={contact}
-            onCreateContact={onCreateContact}
-            onUpdateContact={onUpdateContact}
-            onDeleteContact={onDeleteContact} />
-        </div>
-      </section>
+      contact._id ?
+        <EditContactForm submitHandler={updateHandler} deleteHandler={deleteHandler}>
+          {contactInputs}
+        </EditContactForm>
+        :
+        <CreateContactForm submitHandler={createHandler}>
+          {contactInputs}
+        </CreateContactForm>
     )
   }
 
