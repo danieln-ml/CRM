@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  background-color: #F8F8F9;
+  background-color: white;
   margin: 0;
   padding: 0;
 }
@@ -67,22 +67,44 @@ a {
   padding-top: 2rem;
 }
 
-.contact-list {
+.contact-form {
+  background-color: #F8F8F9;
+  border: 1px solid #F1F1F1;
+  border-radius: 6px;
+  padding-bottom: 1rem;
+}
+
+.contact-list-top,
+.contact-form-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+
+.contact-list-top--title,
+.contact-form-top--title {
+  flex-grow: 1;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.contact-list--list {
   padding-left: 0;
 }
 
-.contact-list--item {
+.contact-list--list-item {
   padding: 1rem;
   list-style: none;
   cursor: pointer;
 }
 
-.contact-list--item:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+.contact-list--list-item:hover {
+  background-color: #F8F8F9;
 }
 
-.contact-list--item.m-empty,
-.contact-list--item.m-empty:hover {
+.contact-list--list-item.m-empty,
+.contact-list--list-item.m-empty:hover {
   background-color: transparent;
   font-style: italic;
   color: #a1a1a1;
@@ -90,12 +112,12 @@ a {
   cursor: initial;
 }
 
-.contact-list--item.s-selected,
-.contact-list--item.s-selected:hover {
+.contact-list--list-item.s-selected,
+.contact-list--list-item.s-selected:hover {
   background-color: #ffc107;
   cursor: initial;
 }
 
-.contact-list--item + .contact-list--item {
+.contact-list--list-item + .contact-list--list-item {
   border-top: 1px solid #E5E5E5;
 }
