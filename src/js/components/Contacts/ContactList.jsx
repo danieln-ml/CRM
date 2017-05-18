@@ -9,8 +9,13 @@ export default class ContactList extends React.Component {
         { this.props.selectedContact._id &&
           <button onClick={this.props.addContactAction}>Add Contact</button>
         }
+
         <ul className="contact-list">
-          {this.props.contacts.map((contact) => this.renderListItem(contact))}
+          { this.props.contacts.length ?
+            this.props.contacts.map((contact) => this.renderListItem(contact))
+            :
+            <li className="contact-list--item m-empty">You haven't added any contacts, yet.</li>
+          }
         </ul>
       </section>
     )

@@ -1,5 +1,5 @@
 import React from "react"
-import ContactInput from "../Inputs/Input.jsx"
+import Input from "../Inputs/Input.jsx"
 import ContactButtonBar from "./ContactButtonBar.jsx"
 
 const DISPLAY_NAMES = {
@@ -15,7 +15,7 @@ export default class ContactForm extends React.Component {
 
   render() {
     const { contact, title, className, onCreateContact, onUpdateContact, onDeleteContact } = this.props
-    let contactFields = contact ? Object.keys(contact) : []
+    const contactFields = contact ? Object.keys(contact) : []
 
     return (
       <section className={className}>
@@ -39,7 +39,8 @@ export default class ContactForm extends React.Component {
 
   renderInput(field, index) {
     return (
-      <ContactInput key={index}
+      <Input
+        key={index}
         name={field}
         label={DISPLAY_NAMES[field]}
         value={this.props.contact ? this.props.contact[field] : ''}

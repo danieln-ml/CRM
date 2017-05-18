@@ -81,6 +81,15 @@ a {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
+.contact-list--item.m-empty,
+.contact-list--item.m-empty:hover {
+  background-color: transparent;
+  font-style: italic;
+  color: #a1a1a1;
+  text-align: center;
+  cursor: initial;
+}
+
 .contact-list--item.s-selected,
 .contact-list--item.s-selected:hover {
   background-color: #ffc107;
