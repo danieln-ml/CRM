@@ -37,11 +37,16 @@ export default class ContactForm extends React.Component {
 
     return (
       contact._id ?
-        <EditContactForm submitHandler={updateHandler} deleteHandler={deleteHandler}>
+        <EditContactForm
+          submitHandler={updateHandler}
+          deleteHandler={deleteHandler}
+          className="col-md-6">
           {contactInputs}
         </EditContactForm>
         :
-        <CreateContactForm submitHandler={createHandler}>
+        <CreateContactForm
+          submitHandler={createHandler}
+          className="col-md-6">
           {contactInputs}
         </CreateContactForm>
     )
