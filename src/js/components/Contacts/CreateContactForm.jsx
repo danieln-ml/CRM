@@ -9,11 +9,11 @@ export default class CreateContactForm extends React.Component {
         <div className="contact-form-top">
           <h3 className="contact-form-top--title">Create Contact</h3>
         </div>
-        
+
         <div className='editable-view'>
           {children}
           <div className="button-bar">
-            <button type="submit">Create</button>
+            <button type="submit" className="btn btn-primary pull-right">Create Contact</button>
           </div>
         </div>
       </form>

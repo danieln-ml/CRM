@@ -17,8 +17,8 @@ export default class EditContactForm extends React.Component {
         {this.props.children}
 
         <div className="button-bar">
-          <button type="submit" key="Save"  className="btn btn-primary">Save</button>
-          <button key="Delete" className="btn btn-danger" onClick={deleteHandler}>Delete</button>
+          <button type="submit" key="Save"  className="btn btn-primary pull-right">Save Changes</button>
+          <button key="Delete" className="btn btn-danger pull-left" onClick={deleteHandler}>Delete</button>
         </div>
       </form>
     )

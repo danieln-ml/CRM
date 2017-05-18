@@ -9,7 +9,7 @@ export default class Header extends React.Component {
           <h2 className="header--title">Contact List</h2>
 
           <div className="header--links">
-            {this.props.children}
+            <a onClick={this.props.buttonAction}>{this.props.buttonText}</a>
           </div>
         </div>
       </header>

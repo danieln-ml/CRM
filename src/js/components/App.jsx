@@ -76,29 +76,35 @@ export default class App extends React.Component {
   }
 
   render() {
-    var body, actionLink
+    let body, buttonAction, buttonText
 
     if (this.state.hasUserSession) {
-      actionLink = <a onClick={this.logoutLinkHandler}>Logout</a>
+      buttonAction = this.logoutLinkHandler
+      buttonText = "Log Out"
       body = <ContactLayout contacts={this.state.user.contacts} />
-    }
-    else {
+    
+    } else {
       body = (
         <UserLayout
           loginHandler={this.loginHandler}
           createHandler={this.createHandler}
           onCreate={this.state.onCreate} />
       )
-      actionLink = this.state.onCreate ?
-        <a onClick={this.loginLinkHandler}>Login</a> :
-        <a onClick={this.createLinkHandler}>Create</a>
+
+      if (this.state.onCreate) {
+        buttonAction = this.loginLinkHandler
+        buttonText = "Sign In"
+      
+      } else {
+        buttonAction = this.createLinkHandler
+        buttonText = "Sign Up"
+      }
     }
 
     return (
       <div>
-        <Header>
-          {actionLink}
-        </Header>
+        <Header buttonAction={buttonAction} buttonText={buttonText} />
+
         <div className="container content">
           {body}
         </div>

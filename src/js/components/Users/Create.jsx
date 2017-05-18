@@ -14,26 +14,28 @@ export default class UserLayout extends React.Component {
     }
 
     return (
-      <div>
-        <h3>Create Account</h3>
+      <section className="col-md-6 col-md-offset-3">
+        <h3>Sign Up</h3>
         <form onSubmit={handleSubmit}>
           <Input
             label="Email"
+            type="email"
             handleChange={handleChange}
             value={user.email}
             name="email"
-            placeholder="some email" />
+            placeholder="admin@carbon.io" />
 
           <Input
             label="Password"
+            type="password"
             handleChange={handleChange}
             value={user.password}
             name="password"
-            placeholder="some password" />
+            placeholder="Password" />
 
-            <input type="submit" value="Create" />
+            <input type="submit" className="btn btn-primary pull-right" value="Create Account" />
         </form>
-      </div>
+      </section>
     )
   }
 }

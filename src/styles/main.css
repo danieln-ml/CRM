@@ -71,7 +71,7 @@ a {
   background-color: #F8F8F9;
   border: 1px solid #F1F1F1;
   border-radius: 6px;
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
 }
 
 .contact-list-top,
@@ -97,6 +97,8 @@ a {
   padding: 1rem;
   list-style: none;
   cursor: pointer;
+  border-top: 1px solid #E5E5E5;
+  color: #636d75;
 }
 
 .contact-list--list-item:hover {
@@ -118,6 +120,6 @@ a {
   cursor: initial;
 }
 
-.contact-list--list-item + .contact-list--list-item {
-  border-top: 1px solid #E5E5E5;
+.contact-list--list-item:last-of-type {
+  border-bottom: 1px solid #E5E5E5;
 }
